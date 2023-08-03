@@ -39,11 +39,11 @@ if __name__ == "__main__":
     RADIUS = 10000  # in meters
     KEYWORD = 'popular area'
 
-    """popular_areas = get_popular_areas(LOCATION, RADIUS, KEYWORD)
+    popular_areas = get_popular_areas(LOCATION, RADIUS, KEYWORD)
 
     if popular_areas:
         print("Popular areas in the vicinity:")
         for place in popular_areas:
             print(place['name'], "at", place['formatted_address'])
     else:
-        print("No popular areas found in the vicinity.")"""
+        print("No popular areas found in the vicinity.")
