@@ -1,10 +1,15 @@
-#
 import googlemaps
 import os
+import discord
 
+#https://discord.com/api/oauth2/authorize?client_id=1137022749966082131&permissions=534723950656&scope=bot
+TOKEN = os.environ['TOURISTER_SECRET']
+API_KEY = os.environ["GMAPS_API_KEY"]
+print(TOKEN)
+
+client = discord.Client(intents=discord.Intents().all())
 
 def location_to_coordinates(gmaps, location):
-    # Geocode the given location to get its coordinates
     geocode_result = gmaps.geocode(location)
     if not geocode_result:
         print("Location not found.")
@@ -21,15 +26,18 @@ def get_popular_areas(location, radius=10000, keyword='popular area'):
     else:
         return []
 
+@client.event
+async def on_ready():
+    print(f'We have logged in as {client.user}')
+
 
 if __name__ == "__main__":
     # Replace YOUR_API_KEY with your actual API key
-    API_KEY = os.environ["GMAPS_API_KEY"]
     gmaps = googlemaps.Client(key=API_KEY)
+    client.run(TOKEN)
 
     place = input("Enter location: ")
 
-    # Replace LATITUDE and LONGITUDE with the coordinates of the location you want to search around
     #LOCATION = (8.487681979172303, 76.95152664966565)
     LOCATION = location_to_coordinates(gmaps, place)
 
