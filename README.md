@@ -6,7 +6,7 @@ As this is integrated into a discord bot, it will be very convinient for group p
 # Team members
 
 [Akash P](https://github.com/FrostyCake47) <br />
-[Niranjana V]((https://github.com/Niranjana-2003)) <br />
+[Niranjana V](https://github.com/Niranjana-2003) <br />
 [Muhammed Muhnis](https://github.com/) <br />
 
 # Youtube Demo
