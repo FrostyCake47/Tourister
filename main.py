@@ -85,8 +85,8 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    KEYWORD = 'point of interest'
-    RADIUS = 5000
+    KEYWORD = 'Popular places'
+    RADIUS = 10000
     try:
         if message.author == client.user:
             return
@@ -96,7 +96,7 @@ async def on_message(message):
             LOCATION = location_to_coordinates(gmaps, place)
             print(LOCATION)
             popular_areas = get_popular_areas(LOCATION, RADIUS, KEYWORD)
-            random.shuffle(popular_areas)
+            #random.shuffle(popular_areas)
             print(popular_areas[0])
             
             for i, place in enumerate(popular_areas):
@@ -108,7 +108,7 @@ async def on_message(message):
                 destination_coordinates = (place['geometry']['location']['lat'], place['geometry']['location']['lng'])
                 distance = get_road_distance(LOCATION, destination_coordinates)
                 image_url = get_place_main_photo(API_KEY, place_id)
-                url = f"https://www.google.com/maps/place/{place_id}"
+                url = f"https://www.google.com/maps/place/?q=place_id:{place_id}"
 
                 if distance is None:
                     distance = 'NULL'
@@ -121,7 +121,7 @@ async def on_message(message):
                 embed.add_field(name="Distance", value=f"{round(distance/1000, 1)} km", inline=False)
                 embed.set_image(url=image_url)
                 await message.channel.send(embed=embed)
-                if i == 5:
+                if i == 4:
                     break
 
 
@@ -134,23 +134,3 @@ if __name__ == "__main__":
     # Replace YOUR_API_KEY with your actual API key
     gmaps = googlemaps.Client(key=API_KEY)
     client.run(TOKEN)
-
-    #place = input("Enter location: ")
-
-    #LOCATION = (8.487681979172303, 76.95152664966565)
-    #LOCATION = location_to_coordinates(gmaps, place)
-
-    #print(LOCATION)
-
-    # You can adjust the radius and keyword as needed
-    #RADIUS = 10000  # in meters
-    #KEYWORD = 'popular area'
-
-    #popular_areas = get_popular_areas(LOCATION, RADIUS, KEYWORD)
-
-    '''if popular_areas:
-        print("Popular areas in the vicinity:")
-        for place in popular_areas:
-            print(place['name'], "at", place['formatted_address'])
-    else:
-        print("No popular areas found in the vicinity.")'''
