@@ -1,6 +1,7 @@
 import googlemaps
 import os
 import discord
+import random
 #from discord.ext import app_commands
 
 #https://discord.com/api/oauth2/authorize?client_id=1137022749966082131&permissions=534723950656&scope=bot%20applications.commands
@@ -21,7 +22,7 @@ def location_to_coordinates(gmaps, location):
     
     return (location_coords["lat"], location_coords["lng"])
 
-def get_popular_areas(location, radius=10000, keyword='popular area'):
+def get_popular_areas(location, radius=5000, keyword='point of interest'):
     places_result = gmaps.places(query=keyword, location=location, radius=radius)
     if 'results' in places_result:
         return places_result['results']
@@ -29,7 +30,7 @@ def get_popular_areas(location, radius=10000, keyword='popular area'):
         return []
 
 def get_place_images(api_key, place_id):
-    place_details = gmaps.place(place_id=place_id, fields=['photos'])
+    place_details = gmaps.place(place_id=place_id, fields='photo')
     if 'photos' not in place_details['result']:
         print("No photos found for the place.")
         return []
@@ -45,6 +46,38 @@ def get_place_images(api_key, place_id):
 
     return image_urls
 
+
+def get_place_main_photo(api_key, place_id, max_width=400):
+
+    base_url = "https://maps.googleapis.com/maps/api/place/photo"
+    max_width_param = f"maxwidth={max_width}"
+    place_id_param = f"photoreference={place_id}"
+    api_key_param = f"key={api_key}"
+
+    url = f"{base_url}?{max_width_param}&{place_id_param}&{api_key_param}"
+    return url
+
+def get_road_distance(origin, destination, mode="driving"):
+    try:
+        # Get the distance matrix for the given coordinates
+        result = gmaps.distance_matrix(
+            origins=[origin],
+            destinations=[destination],
+            mode=mode,
+            units="metric"
+        )
+
+        if result["rows"][0]["elements"][0]["status"] == "OK":
+            distance = result["rows"][0]["elements"][0]["distance"]["value"]
+            return distance
+        else:
+            print("Error: Unable to calculate road distance.")
+            return None
+    except googlemaps.exceptions.ApiError as e:
+        print("Error:", e)
+        return None
+
+
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
@@ -52,8 +85,8 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    KEYWORD = 'popular area'
-    RADIUS = 10000
+    KEYWORD = 'point of interest'
+    RADIUS = 5000
     try:
         if message.author == client.user:
             return
@@ -63,15 +96,33 @@ async def on_message(message):
             LOCATION = location_to_coordinates(gmaps, place)
             print(LOCATION)
             popular_areas = get_popular_areas(LOCATION, RADIUS, KEYWORD)
+            random.shuffle(popular_areas)
             print(popular_areas[0])
             
-            for place in popular_areas:
+            for i, place in enumerate(popular_areas):
                 print(place['name'], "at", place['formatted_address'])
                 #await message.channel.send(place['name'] + "at" + place['formatted_address'])
+                place_id = place['place_id']
+                print("this is the place id", place_id)
 
-                embed=discord.Embed(title=place['name'], description=place['formatted_address'], color=0x772eff)
+                destination_coordinates = (place['geometry']['location']['lat'], place['geometry']['location']['lng'])
+                distance = get_road_distance(LOCATION, destination_coordinates)
+                image_url = get_place_main_photo(API_KEY, place_id)
+                url = f"https://www.google.com/maps/place/{place_id}"
+
+                if distance is None:
+                    distance = 'NULL'
+                
+                print("distance = ", distance)
+                #print(image_url)
+
+                embed=discord.Embed(title=f"{i+1}) {place['name']}", description=place['formatted_address'], color=0x772eff, url=url )
+                embed.add_field(name="Rating", value=f"{place['rating']} ⭐ ({place['user_ratings_total']})", inline=False)
+                embed.add_field(name="Distance", value=f"{round(distance/1000, 1)} km", inline=False)
+                embed.set_image(url=image_url)
                 await message.channel.send(embed=embed)
-                break
+                if i == 5:
+                    break
 
 
     except Exception as e:
@@ -92,8 +143,8 @@ if __name__ == "__main__":
     #print(LOCATION)
 
     # You can adjust the radius and keyword as needed
-    RADIUS = 10000  # in meters
-    KEYWORD = 'popular area'
+    #RADIUS = 10000  # in meters
+    #KEYWORD = 'popular area'
 
     #popular_areas = get_popular_areas(LOCATION, RADIUS, KEYWORD)
 
