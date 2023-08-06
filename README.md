@@ -1,7 +1,9 @@
 # TOURISTER
 
-This is a project made using GMaps API and represented as a discord chatbot. It allows us to quickly search for the popular areas of a given city/town.
-As this is integrated into a discord bot, it will be very convinient for group planning and to come up with a location for travelling.
+This is a project made using GMaps API and represented as a discord chatbot. It allows us to quickly search for a variety of places in locality with our point of interests, such as 'popular places', historical sites', 'tourist attraction'. High flexiblity is also provided as one can search location with custon keywords also like 'restaurants', 'hotels' etc making planning for the trips easier.
+<br /> It also comes with addional functionalities like <br /> ৹ Calculating a distance between two location and providing the time required for the travel <br /> ৹ Converting Address to Coordinates and vice versa
+
+# Team name - iostream
 
 # Team members
 
@@ -10,6 +12,31 @@ As this is integrated into a discord bot, it will be very convinient for group p
 [Muhammed Muhnis](https://github.com/) <br />
 
 # Youtube Demo
+
+# How the tool works
+The tool works using Google maps API to retrieve data and process and location and uses Discord API to give a visual representation to the clients <br /> 
+It has 4 main prompts <br /> <br />
+
+```/locate [location] [key_word] [search_radius]``` <br /> 
+Returns an discord embed of 5 top results matching the inputs <br/> 
+1) location of your preferred city <br />
+2) keyword indicates your point of interests, eg - 'popular places', 'historic building, 'restaurants' <br />
+3) Search radius in km <br /> <br />
+![locate](https://imgur.com/a/lnXErae)
+
+```/distance [location1] [location2]```  <br />
+Returns the distance between location1 and location2 and also the time required to travel between the two points <br /> <br /> 
+
+
+```/loc_to_coord [location]``` <br /> 
+Converts the Adress of given location and returns the coordinates of the point <br /> <br /> 
+
+```/coord_to_loc [lat] [lng]``` <br /> 
+Converts the given latitiute and longitude and returns the address of the location. <br /> <br /> 
+
+```/help``` <br /> 
+Provides the command and infos in discord chat <br />
+
 
 # Libraries used
 Google Maps API and Discord API
