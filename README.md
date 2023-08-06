@@ -1,4 +1,4 @@
-# TOURISTER
+![Screenshot 2023-08-06 233538](https://github.com/FrostyCake47/Tourister/assets/47393739/2d12343e-bb40-45f9-9e24-99d197515c2b)# TOURISTER
 
 This is a project made using GMaps API and represented as a discord chatbot. It allows us to quickly search for a variety of places in locality with our point of interests, such as 'popular places', historical sites', 'tourist attraction'. High flexiblity is also provided as one can search location with custon keywords also like 'restaurants', 'hotels' etc making planning for the trips easier.
 <br /> It also comes with addional functionalities like <br /> ৹ Calculating a distance between two location and providing the time required for the travel <br /> ৹ Converting Address to Coordinates and vice versa
@@ -24,6 +24,8 @@ Returns an discord embed of 5 top results matching the inputs <br/>
 3) Search radius in km <br /> <br />
 ![locate](/screenshot/1.png)
 ![locate](/screenshot/2.png)
+![locate](/screenshot/9.png)
+
 
 ```/distance [location1] [location2]```  <br />
 Returns the distance between location1 and location2 and also the time required to travel between the two points <br /> <br /> 
