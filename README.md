@@ -22,17 +22,23 @@ Returns an discord embed of 5 top results matching the inputs <br/>
 1) location of your preferred city <br />
 2) keyword indicates your point of interests, eg - 'popular places', 'historic building, 'restaurants' <br />
 3) Search radius in km <br /> <br />
-![locate](https://imgur.com/a/lnXErae)
+![locate](/screenshot/1.png)
+![locate](/screenshot/2.png)
 
 ```/distance [location1] [location2]```  <br />
 Returns the distance between location1 and location2 and also the time required to travel between the two points <br /> <br /> 
-
+![locate](/screenshot/3.png)
+![locate](/screenshot/4.png)
 
 ```/loc_to_coord [location]``` <br /> 
 Converts the Adress of given location and returns the coordinates of the point <br /> <br /> 
+![locate](/screenshot/5.png)
+![locate](/screenshot/6.png)
 
 ```/coord_to_loc [lat] [lng]``` <br /> 
 Converts the given latitiute and longitude and returns the address of the location. <br /> <br /> 
+![locate](/screenshot/7.png)
+![locate](/screenshot/8.png)
 
 ```/help``` <br /> 
 Provides the command and infos in discord chat <br />
