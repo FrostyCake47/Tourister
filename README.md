@@ -3,7 +3,7 @@
 This is a project made using GMaps API and represented as a discord chatbot. It allows us to quickly search for a variety of places in locality with our point of interests, such as 'popular places', historical sites', 'tourist attraction'. High flexiblity is also provided as one can search location with custon keywords also like 'restaurants', 'hotels' etc making planning for the trips easier.
 <br /> It also comes with addional functionalities like <br /> ৹ Calculating a distance between two location and providing the time required for the travel <br /> ৹ Converting Address to Coordinates and vice versa
 
-# Team name - iostream
+# Team name - StayFrosty
 
 # Team members
 
